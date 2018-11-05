@@ -1,0 +1,37 @@
+main section.new-tweet {
+  background-color: #eee;
+  /* opacity: 0.5; */
+  padding: 10px;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+main section h2 {
+  margin: 0;
+  z-index: 10;
+  opacity: 1;
+}
+
+main section h2:after {
+  content: ' ';
+  display: block;
+  border: 0.5px solid black;
+}
+
+main section form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 5px;
+}
+
+main section form input {
+  float: left;
+  margin-top: 5px;
+}
+
+main section form span.counter {
+  float: right;
+  margin-top: 5px;
+}
+
