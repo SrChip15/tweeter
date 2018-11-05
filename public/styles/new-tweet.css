@@ -35,3 +35,10 @@ main section form span.counter {
   margin-top: 5px;
 }
 
+.black-text {
+  color: black;
+}
+
+.red-text {
+  color: red;
+}
