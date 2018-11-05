@@ -7,13 +7,22 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
 /*
  * Global layout stuff
  */
+body main.container {
+  position: relative;
+  top: 140px;
+  width: 450px;
+  margin: 0 auto;
+  background-color: #fff;
+}
 
 body {
   margin: 0;
