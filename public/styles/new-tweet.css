@@ -1,6 +1,11 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 main section.new-tweet {
   background-color: #eee;
-  /* opacity: 0.5; */
   padding: 10px;
   border-radius: 5px;
   overflow: auto;
@@ -41,4 +46,50 @@ main section form span.counter {
 
 .red-text {
   color: red;
+}
+
+main section.tweet {
+  margin-top: 20px;
+  overflow: auto;
+  border: 0.5px solid grey;
+  border-radius: 5px;
+}
+
+main section article header {
+  background-color: #eee;
+  height: 70px;
+  padding: 10px;
+}
+
+main section article header img {
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+
+main section article header h1 {
+  font-size: 120%;
+  float: left;
+  margin: 0;
+  margin-left: 10px;
+}
+
+main section article header p {
+  float: right;
+}
+
+main section article p.body {
+  line-height: 5em;
+  margin: 15px;
+}
+
+main section article footer p {
+  line-height: 2em;
+  margin: 0 10px;
+}
+
+main section article footer::before {
+  content: ' ';
+  display: block;
+  border: 0.25px solid lightgray;
 }
