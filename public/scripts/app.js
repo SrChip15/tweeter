@@ -53,12 +53,18 @@ $(document).ready(function () {
     event.preventDefault();
 
     let formData = $(this).serialize();
-    // console.log(formData);
+    const counter = formData.split('=')[1].length;
+
+    if (counter > 140) {
+      alert('Tweet too long!');
+    } else if (counter === 0) {
+      alert('Please type something to post as a Tweet!');
+    }
+
     $.ajax('/tweets', {
       method: "POST",
       data: formData,
     }).then(() => {
-      console.log($("textarea", this));
       $("textarea", this).val('');
     });
   });
