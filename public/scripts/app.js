@@ -68,6 +68,7 @@ const tweetData = {
 }
 
 $(document).ready(function () {
+
   function createTweetElement(tweet) {
     const user = tweet.user;
     const tweetAge = Math.abs(new Date().getDate() - new Date(tweet.created_at).getDate());
@@ -97,16 +98,15 @@ $(document).ready(function () {
 
   // Test / driver code (temporary)
   let $tweet = createTweetElement(tweetData); // to see what it looks like
-  $('.tweets-container').append($tweet); // to add it to the page so we can make sure it's got all the right elements, classes, etc.
-});
+   // $('.tweets-container').append($tweet); // to add it to the page so we can make sure it's got all the right elements, classes, etc.
 
-function renderTweets(tweets) {
-  // loops through tweets
-  // calls createTweetElement for each tweet
-  // takes return value and appends it to the tweets container
-  for (const tweet of tweetsList) {
-    createTweetElement(tweet);
+  function renderTweets(tweets) {
+    // loops through tweets
+    // calls createTweetElement for each tweet
+    // takes return value and appends it to the tweets container
+    for (const tweet of tweets) {
+      $('.tweets-container').append(createTweetElement(tweet));
+    }
   }
-}
-
-// renderTweets(data);
+  renderTweets(data);
+});
