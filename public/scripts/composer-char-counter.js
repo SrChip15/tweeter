@@ -1,9 +1,6 @@
 const MAX_CHAR_LIMIT = 140;
 
-const validateInput = function (textArea) {
-  const input = $(textArea).siblings('input');
-  const spanCount = $(textArea).siblings('.counter');
-
+const validateInput = function (textArea, input, spanCount) {
   let counter = MAX_CHAR_LIMIT - $(textArea).val().length;
 
   if (counter < 0) {
@@ -13,21 +10,22 @@ const validateInput = function (textArea) {
     input.removeAttr('disabled');
     spanCount.removeClass('red-text').addClass('black-text');
   }
+
+  return counter;
 }
 
 $(document).ready(() => {
   console.log('Document has loaded!');
+  const $textArea = $('textarea');
+  const $input = $textArea.siblings('input');
+  const $spanCount = $textArea.siblings('.counter');
 
   // validate input again upon page refresh
-  $('.counter').text(function () {
-    validateInput($(this).siblings('textarea'));
-    return MAX_CHAR_LIMIT - $(this).siblings('textarea').val().length;
-  });
+  $('.counter').text(validateInput($textArea, $input, $spanCount));
 
   // detect input and change state
-  $('textarea').on('input', function () {
-    validateInput(this);
-    const spanCount = $(this).siblings('.counter');
-    $(spanCount).text(MAX_CHAR_LIMIT - $(this).val().length);
+  $textArea.on('input', function () {
+    let counter = validateInput(this, $input, $spanCount);
+    $($spanCount).text(counter);
   });
 });

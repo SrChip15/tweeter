@@ -72,4 +72,14 @@ $(document).ready(function () {
       $("textarea", this).val('');
     });
   });
+
+  $('#nav-bar > input').click(function () {
+    if ($('.new-tweet').is(':visible')) {
+      $('.new-tweet').slideUp('slow');
+    } else {
+      $('.new-tweet').slideDown('fast', function() {
+        $('textarea').focus();
+      });
+    }
+  });
 });
