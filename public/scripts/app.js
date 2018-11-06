@@ -41,8 +41,9 @@ $(document).ready(function () {
   }
 
   function renderTweets(tweets) {
-    for (const tweet of tweets) {
-      $('.tweets-container').append(createTweetElement(tweet));
+    $('.tweets-container').empty();
+    for (let i = tweets.length - 1; i >= 0; i--) {
+      $('.tweets-container').append(createTweetElement(tweets[i]));
     }
   }
 
@@ -64,6 +65,9 @@ $(document).ready(function () {
     $.ajax('/tweets', {
       method: "POST",
       data: formData,
+      success: function (tweet) {
+        $('.tweets-container').prepend(createTweetElement(tweet));
+      },
     }).then(() => {
       $("textarea", this).val('');
     });
