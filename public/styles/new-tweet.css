@@ -4,40 +4,40 @@
   padding: 0;
 }
 
-main section.new-tweet {
+section.new-tweet {
   background-color: #eee;
   padding: 10px;
   border-radius: 5px;
   overflow: auto;
 }
 
-main section h2 {
+section h2 {
   margin: 0;
   z-index: 10;
   opacity: 1;
 }
 
-main section h2:after {
+section h2:after {
   content: ' ';
   display: block;
   border: 0.5px solid black;
 }
 
-main section form textarea {
+textarea {
   display: block;
   width: 100%;
   margin-top: 20px;
   padding: 5px;
 }
 
-main section form input {
+input {
   float: left;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
-main section form span.counter {
+span.counter {
   float: right;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .black-text {
@@ -48,47 +48,65 @@ main section form span.counter {
   color: red;
 }
 
-main section.tweet {
+section.tweet {
   margin-top: 20px;
   overflow: auto;
   border: 0.5px solid grey;
   border-radius: 5px;
+  opacity: 0.6;
+  transition: opacity 500ms ease-in;
+
 }
 
-main section article header {
+article header {
   background-color: #eee;
   height: 70px;
   padding: 10px;
 }
 
-main section article header img {
+article header img {
   width: 50px;
   height: 50px;
   float: left;
 }
 
-main section article header h1 {
-  font-size: 120%;
+article header h1 {
+  font-size: 150%;
   float: left;
   margin: 0;
   margin-left: 10px;
 }
 
-main section article header p {
+article header p {
   float: right;
 }
 
-main section article p.body {
+article p.body {
   line-height: 5em;
   margin: 15px;
 }
 
-main section article footer p {
+article footer p {
+  display: inline-block;
   line-height: 2em;
   margin: 0 10px;
 }
 
-main section article footer::before {
+div.tweet-actions {
+  float: right;
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+  line-height: 2em;
+  margin-right: 10px;
+}
+
+.tweet:hover .tweet-actions,
+.tweet:hover {
+  display: block;
+  opacity: 1;
+}
+
+article footer::before {
   content: ' ';
   display: block;
   border: 0.25px solid lightgray;
