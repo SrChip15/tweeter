@@ -48,7 +48,7 @@ span.counter {
   color: red;
 }
 
-section.tweets-container {
+section.tweets-container>article {
   margin-top: 20px;
   overflow: auto;
   border: 0.5px solid grey;
