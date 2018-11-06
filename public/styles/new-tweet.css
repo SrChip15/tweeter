@@ -99,8 +99,8 @@ div.tweet-actions {
   margin-right: 10px;
 }
 
-.tweets-container:hover .tweet-actions,
-.tweets-container:hover {
+.tweets-container>article:hover .tweet-actions,
+.tweets-container>article:hover {
   display: block;
   opacity: 1;
 }

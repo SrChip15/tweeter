@@ -45,7 +45,7 @@ const data = [{
       "handle": "@johann49"
     },
     "content": {
-      "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
+      "text": "Es ist nichts <script>alert('hello');</script> schrecklicher als eine tätige Unwissenheit."
     },
     "created_at": 1461113796368
   }
@@ -81,7 +81,7 @@ $(document).ready(function () {
     const $headerUserHandle = $('<p>').append(tweet.user.handle);
     $header.append($headerAvatar).append($headerUserName).append($headerUserHandle);
 
-    const $body = $('<p>').addClass('body').append(tweet.content.text);
+    const $body = $('<p>').addClass('body').append(document.createTextNode(tweet.content.text));
 
     // footer stuff
     const $footer = $('<footer>');
@@ -90,7 +90,7 @@ $(document).ready(function () {
     const $footerActionFlag = $('<i>').addClass('fa fa-flag');
     const $footerActionShare = $('<i>').addClass('fas fa-retweet');
     const $footerActionHeart = $('<i>').addClass('fas fa-heart');
-    $footerActions.append($footerActionFlag).append($footerActionShare).append($footerActionHeart);
+    $footerActions.append($footerActionFlag).append('&nbsp;').append($footerActionShare).append('&nbsp;').append($footerActionHeart);
     $footer.append($footerAge).append($footerActions);
 
     return $tweet.append($header).append($body).append($footer);
@@ -109,4 +109,18 @@ $(document).ready(function () {
     }
   }
   renderTweets(data);
+
+  $('form').submit(function(event) {
+    event.preventDefault();
+
+    let formData = $(this).serialize();
+    // console.log(formData);
+    $.ajax('/tweets', {
+      method: "POST",
+      data: formData,
+    }).then(() => {
+      console.log($("textarea", this));
+      $("textarea", this).val('');
+    });
+  });
 });
