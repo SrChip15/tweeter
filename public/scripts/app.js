@@ -74,7 +74,12 @@ $(document).ready(function () {
   });
 
   $('#nav-bar > input').click(function () {
-    $('.new-tweet').slideToggle();
-    $('textarea').focus();
+    if ($('.new-tweet').is(':visible')) {
+      $('.new-tweet').slideUp('slow');
+    } else {
+      $('.new-tweet').slideDown('fast', function() {
+        $('textarea').focus();
+      });
+    }
   });
 });
