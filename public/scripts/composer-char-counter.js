@@ -1,4 +1,5 @@
 const MAX_CHAR_LIMIT = 140;
+const ERROR_MSG_EXCEED_CHAR = "Tweet text has exceeded the max characters!"
 
 const validateInput = function (textArea, input, spanCount) {
   let counter = MAX_CHAR_LIMIT - $(textArea).val().length;
@@ -27,5 +28,11 @@ $(document).ready(() => {
   $textArea.on('input', function () {
     let counter = validateInput(this, $input, $spanCount);
     $($spanCount).text(counter);
+
+    if (counter < 0) {
+      $('.error-msg').text(ERROR_MSG_EXCEED_CHAR).slideDown();
+    } else {
+      $('.error-msg').slideUp();
+    }
   });
 });

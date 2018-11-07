@@ -119,3 +119,19 @@ article footer::before {
 input[type="submit"][disabled] {
   opacity: 0.5;
 }
+
+.error-msg {
+  display:none;
+  position: relative;
+  top: 80px;
+  width: 80%;
+  height: 5%;
+  border: 0.5px solid red;
+  background-color: white;
+  color: red;
+  margin: 0 auto;
+  text-align: center;
+  z-index: 100;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

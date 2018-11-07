@@ -3,6 +3,7 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+const ERROR_MSG_NO_TEXT = 'Please type something to post as a Tweet!';
 $(document).ready(function () {
 
   function loadTweets() {
@@ -56,10 +57,9 @@ $(document).ready(function () {
     let formData = $(this).serialize();
     const counter = formData.split('=')[1].length;
 
-    if (counter > 140) {
-      alert('Tweet too long!');
-    } else if (counter === 0) {
-      alert('Please type something to post as a Tweet!');
+    if (counter === 0) {
+      $('.error-msg').text(ERROR_MSG_NO_TEXT).slideDown();
+      // alert('Please type something to post as a Tweet!');
     }
 
     $.ajax('/tweets', {
@@ -74,12 +74,7 @@ $(document).ready(function () {
   });
 
   $('#nav-bar > input').click(function () {
-    if ($('.new-tweet').is(':visible')) {
-      $('.new-tweet').slideUp('slow');
-    } else {
-      $('.new-tweet').slideDown('fast', function() {
-        $('textarea').focus();
-      });
-    }
+    $('.new-tweet').slideToggle();
+    $('textarea').focus();
   });
 });
