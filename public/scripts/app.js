@@ -7,6 +7,12 @@ const ERROR_MSG_NO_TEXT = 'Please type something to post as a Tweet!';
 $(document).ready(function () {
   $('.new-tweet').hide();
 
+  // Grow new tweet esp, the `textarea` to accomodate for multi-line text
+  // without user not having to use the default scroll bar
+  $('textarea').focus(function() {
+    $(this).addClass('grow-context');
+  });
+
   function loadTweets() {
     $.ajax('/tweets', {
       method: "GET",
@@ -70,7 +76,9 @@ $(document).ready(function () {
         $('.tweets-container').prepend(createTweetElement(tweet));
       },
     }).then(() => {
-      $("textarea", this).val('');
+      // Clear new tweet contents after post is made & reduce height
+      $("textarea", this).val('').removeClass('grow-context');
+      // Visually reset the counter
       $('.counter').text(MAX_CHAR_LIMIT);
     });
   });
