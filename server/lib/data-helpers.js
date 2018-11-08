@@ -12,8 +12,6 @@ module.exports = function makeDataHelpers(db) {
       db.collection("tweets")
       .insertOne(newTweet)
       .catch(console.log);
-
-      db.close();
       callback(null, true);
     },
 
