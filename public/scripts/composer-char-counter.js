@@ -6,10 +6,10 @@ const validateInput = function (textArea, input, spanCount) {
 
   if (counter < 0) {
     input.attr('disabled', 'disabled');
-    spanCount.removeClass('black-text').addClass('red-text');
+    spanCount.addClass('red-text');
   } else {
     input.removeAttr('disabled');
-    spanCount.removeClass('red-text').addClass('black-text');
+    spanCount.removeClass('red-text');
   }
 
   return counter;

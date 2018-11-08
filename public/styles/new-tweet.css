@@ -61,8 +61,9 @@ span.counter {
   color: black;
 }
 
-.red-text {
+.counter.red-text {
   color: red;
+  font-weight: 700;
 }
 
 section.tweets-container>article {

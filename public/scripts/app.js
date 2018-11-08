@@ -18,6 +18,7 @@ $(document).ready(function () {
     const tweetAge = Math.abs(new Date().getDate() - new Date(tweet.created_at).getDate());
 
     const $tweet = $('<article>');
+
     // header stuff
     const $header = $('<header>');
     const $headerAvatar = $(`<img src="${user.avatars.small}">`);
