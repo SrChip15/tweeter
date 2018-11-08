@@ -5,6 +5,8 @@
  */
 const ERROR_MSG_NO_TEXT = 'Please type something to post as a Tweet!';
 $(document).ready(function () {
+  $('.new-tweet').hide();
+
   function loadTweets() {
     $.ajax('/tweets', {
       method: "GET",
