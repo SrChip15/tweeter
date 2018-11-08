@@ -59,7 +59,6 @@ $(document).ready(function () {
 
     if (counter === 0) {
       $('.error-msg').text(ERROR_MSG_NO_TEXT).slideDown();
-      // alert('Please type something to post as a Tweet!');
     }
 
     $.ajax('/tweets', {
@@ -70,6 +69,7 @@ $(document).ready(function () {
       },
     }).then(() => {
       $("textarea", this).val('');
+      $('.counter').text(MAX_CHAR_LIMIT);
     });
   });
 
