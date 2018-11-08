@@ -4,14 +4,15 @@
   height: 80px;
   z-index: 100;
   color: #e8fdff;
-  background-color: #00a087;
+  background-color: orange;
   padding: 0 2em;
 }
 
-#nav-bar .logo {
-  width: 80px;
-  height: 80px;
+#nav-bar i {
   float: left;
+  color: white;
+  font-size: 2em;
+  margin: 0.6em 0;
 }
 
 #nav-bar .header {
@@ -25,6 +26,7 @@
 #nav-bar input {
   float: right;
   line-height: 2.5em;
+  font-size: 15px;
   color: black;
   background-color: white;
   opacity: 0.6;
