@@ -1,7 +1,7 @@
 const MAX_CHAR_LIMIT = 140;
 const ERROR_MSG_EXCEED_CHAR = "Tweet text has exceeded the max characters!"
 
-const validateInput = function (textArea, input, spanCount) {
+const manageNewTweetValidationAndState = function (textArea, input, spanCount) {
   let counter = MAX_CHAR_LIMIT - $(textArea).val().length;
 
   if (counter < 0) {
@@ -22,11 +22,11 @@ $(document).ready(() => {
   const $spanCount = $textArea.siblings('.counter');
 
   // validate input again upon page refresh
-  $('.counter').text(validateInput($textArea, $input, $spanCount));
+  $('.counter').text(manageNewTweetValidationAndState($textArea, $input, $spanCount));
 
   // detect input and change state
   $textArea.on('input', function () {
-    let counter = validateInput(this, $input, $spanCount);
+    let counter = manageNewTweetValidationAndState(this, $input, $spanCount);
     $($spanCount).text(counter);
 
     if (counter < 0) {

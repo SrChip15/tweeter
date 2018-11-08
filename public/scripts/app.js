@@ -5,6 +5,7 @@
  */
 const ERROR_MSG_NO_TEXT = 'Please type something to post as a Tweet!';
 $(document).ready(function () {
+  // Hide new tweet section on page load
   $('.new-tweet').hide();
 
   // Grow new tweet esp, the `textarea` to accomodate for multi-line text
@@ -20,6 +21,49 @@ $(document).ready(function () {
       renderTweets(tweets);
     })
   }
+
+
+  loadTweets();
+
+  // Handle new tweet form submission here
+  // Get form data and perform remaining form validation rules
+  // Submit data as a AJAX request & perform cleanup & reset activities
+  $('form').submit(function (event) {
+    event.preventDefault();
+
+    let formData = $(this).serialize();
+    const counter = formData.split('=')[1].length;
+
+    if (counter === 0) {
+      $('.error-msg').text(ERROR_MSG_NO_TEXT).slideDown();
+    }
+
+    $.ajax('/tweets', {
+      method: "POST",
+      data: formData,
+      success: function (tweet) {
+        $('.tweets-container').prepend(createTweetElement(tweet));
+      },
+    }).then(() => {
+      // Clear new tweet contents after post is made & reduce height
+      $("textarea", this).val('').removeClass('grow-context');
+      // Visually reset the counter
+      $('.counter').text(MAX_CHAR_LIMIT);
+    });
+  });
+
+
+  // Handle compose button click event
+  // If new tweet form is visible hide it else show it with slide transition
+  $('#nav-bar > input').click(function () {
+    if ($('.new-tweet').is(':visible')) {
+      $('.new-tweet').slideUp('slow');
+    } else {
+      $('.new-tweet').slideDown('fast', function() {
+        $('textarea').focus();
+      });
+    }
+  });
 
   function createTweetElement(tweet) {
     const user = tweet.user;
@@ -55,41 +99,4 @@ $(document).ready(function () {
       $('.tweets-container').append(createTweetElement(tweets[i]));
     }
   }
-
-  loadTweets();
-
-
-  $('form').submit(function (event) {
-    event.preventDefault();
-
-    let formData = $(this).serialize();
-    const counter = formData.split('=')[1].length;
-
-    if (counter === 0) {
-      $('.error-msg').text(ERROR_MSG_NO_TEXT).slideDown();
-    }
-
-    $.ajax('/tweets', {
-      method: "POST",
-      data: formData,
-      success: function (tweet) {
-        $('.tweets-container').prepend(createTweetElement(tweet));
-      },
-    }).then(() => {
-      // Clear new tweet contents after post is made & reduce height
-      $("textarea", this).val('').removeClass('grow-context');
-      // Visually reset the counter
-      $('.counter').text(MAX_CHAR_LIMIT);
-    });
-  });
-
-  $('#nav-bar > input').click(function () {
-    if ($('.new-tweet').is(':visible')) {
-      $('.new-tweet').slideUp('slow');
-    } else {
-      $('.new-tweet').slideDown('fast', function() {
-        $('textarea').focus();
-      });
-    }
-  });
 });
