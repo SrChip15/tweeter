@@ -23,8 +23,9 @@
   font-size: 2em;
 }
 
-#nav-bar input {
+#nav-bar input[type="submit"] {
   float: right;
+  display: none;
   line-height: 2.5em;
   font-size: 15px;
   color: black;
@@ -37,4 +38,16 @@
 
 #nav-bar input:hover {
   opacity: 1;
+}
+
+#nav-bar .login {
+  float: right;
+  padding: 5px;
+}
+
+div.login input {
+  background-color: white;
+  margin-right: 5px;
+  color: orange;
+  line-height: 2em;
 }
