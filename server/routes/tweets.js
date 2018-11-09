@@ -40,6 +40,10 @@ module.exports = function(DataHelpers) {
     });
   });
 
+  tweetsRoutes.post("/name:username", function(req, res) {
+    DataHelpers.saveLike()
+  })
+
   return tweetsRoutes;
 
 }

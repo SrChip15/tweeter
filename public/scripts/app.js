@@ -10,7 +10,7 @@ $(document).ready(function () {
 
   // Grow new tweet esp, the `textarea` to accomodate for multi-line text
   // without user not having to use the default scroll bar
-  $('textarea').focus(function() {
+  $('textarea').focus(function () {
     $(this).addClass('grow-context');
   });
 
@@ -59,10 +59,23 @@ $(document).ready(function () {
     if ($('.new-tweet').is(':visible')) {
       $('.new-tweet').slideUp('slow');
     } else {
-      $('.new-tweet').slideDown('fast', function() {
+      $('.new-tweet').slideDown('fast', function () {
         $('textarea').focus();
       });
     }
+  });
+
+  $(document).on('click', '.tweet-actions > a', function (e) {
+    e.preventDefault();
+    let c = parseInt($(this).siblings('span').text(), 10) + 1;
+    $(this).siblings('span').text(c);
+    const username = $(this).siblings('span').data().username;
+
+    $.ajax('/tweets/${username}', {
+      method: "POST",
+      data: c,
+      success: $(this).siblings('span').text(c),
+    })
   });
 
   function createTweetElement(tweet) {
@@ -86,8 +99,11 @@ $(document).ready(function () {
     const $footerActions = $('<div>').addClass('tweet-actions');
     const $footerActionFlag = $('<i>').addClass('fa fa-flag');
     const $footerActionShare = $('<i>').addClass('fas fa-retweet');
-    const $footerActionHeart = $('<i>').addClass('fas fa-heart');
-    $footerActions.append($footerActionFlag).append('&nbsp;').append($footerActionShare).append('&nbsp;').append($footerActionHeart);
+    if (tweet.like)
+    const $footerActionHeart = $('<a>').append($('<i>').addClass('far fa-heart')).attr('href', '#');
+    const $footerHeartCounter = $('<span>').addClass('heart-counter').data('username', tweet.user.name).append(10);
+
+    $footerActions.append($footerActionFlag).append('&nbsp;').append($footerActionShare).append('&nbsp;').append($footerActionHeart).append($footerHeartCounter);
     $footer.append($footerAge).append($footerActions);
 
     return $tweet.append($header).append($body).append($footer);
