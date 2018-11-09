@@ -10,10 +10,8 @@ module.exports = function makeDataHelpers(db) {
     // Saves a tweet to `db`
     saveTweet: function (newTweet, callback) {
       db.collection("tweets")
-      .insertOne(newTweet)
-      .catch(console.log);
-
-      db.close();
+        .insertOne(newTweet)
+        .catch(console.log);
       callback(null, true);
     },
 
