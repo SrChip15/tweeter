@@ -23,7 +23,7 @@
   font-size: 2em;
 }
 
-#nav-bar input[type="submit"] {
+#nav-bar a.compose {
   float: right;
   display: none;
   line-height: 2.5em;
@@ -34,6 +34,7 @@
   cursor: pointer;
   padding-left: 15px;
   padding-right: 15px;
+  text-decoration: none;
 }
 
 #nav-bar input:hover {

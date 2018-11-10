@@ -8,6 +8,36 @@ $(document).ready(function () {
   // Hide new tweet section on page load
   $('.new-tweet').hide();
 
+  $('div.login > form').submit(function (event) {
+    event.preventDefault();
+
+    const formData = $(this).serialize();
+    console.log(formData);
+    console.log(formData.split(/\W+/));
+    const data = formData.split(/\W+/);
+    const checkSession = {
+      [data[0]]: data[1],
+      [data[2]]: data[3],
+    }
+
+    $.ajax('/session', {
+      method: "GET",
+      success: function (userList) {
+        if(isExistingUser(checkSession, userList)) {
+          // set cookie
+        }
+      }
+    }).then(() => {
+      // display tweets & compose button
+      $('.tweets-container').show();
+      $('#nav-bar a.compose').show();
+      loadTweets();
+      // hide login/register form
+      $('div.login').hide();
+    });
+  })
+
+
   // Grow new tweet esp, the `textarea` to accomodate for multi-line text
   // without user not having to use the default scroll bar
   $('textarea').focus(function() {
@@ -22,8 +52,7 @@ $(document).ready(function () {
     })
   }
 
-
-  loadTweets();
+  // loadTweets();
 
   // Handle new tweet form submission here
   // Get form data and perform remaining form validation rules
@@ -55,7 +84,7 @@ $(document).ready(function () {
 
   // Handle compose button click event
   // If new tweet form is visible hide it else show it with slide transition
-  $('#nav-bar > input').click(function () {
+  $('#nav-bar > a').click(function () {
     if ($('.new-tweet').is(':visible')) {
       $('.new-tweet').slideUp('slow');
     } else {
@@ -98,5 +127,15 @@ $(document).ready(function () {
     for (let i = tweets.length - 1; i >= 0; i--) {
       $('.tweets-container').append(createTweetElement(tweets[i]));
     }
+  }
+
+  function isExistingUser(entry, users) {
+    for (const user of users) {
+      if (user.name === entry.name && user.password === entry.password) {
+        console.log(`Name and password match.`);
+        return true;
+      }
+    }
+    return false;
   }
 });

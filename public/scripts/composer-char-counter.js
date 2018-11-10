@@ -16,7 +16,6 @@ const manageNewTweetValidationAndState = function (textArea, input, spanCount) {
 }
 
 $(document).ready(() => {
-  console.log('Document has loaded!');
   const $textArea = $('textarea');
   const $input = $textArea.siblings('input');
   const $spanCount = $textArea.siblings('.counter');

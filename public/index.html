@@ -42,10 +42,14 @@
     <i class="fas fa-dove"></i>
     <span class="header">Tweeter</span>
     <div class="login">
-      <input type="text" name="text" placeholder="username or email">
-      <input type="password" name="password" placeholder="password">
+      <form action="/session" method="POST">
+        <input type="text" name="name" placeholder="username or email">
+        <input type="password" name="password" placeholder="password">
+        <input type="submit" name="login-button" value="Login">
+        <input class="register" type="submit" name="register" value="Register">
+      </form>
     </div>
-    <input type="submit" value=" Compose">
+    <a href="#" class="compose"><i class="fas fa-feather-alt"></i>Compose</a>
   </nav>
   <div class="error-msg"></div>
 
