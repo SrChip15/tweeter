@@ -5,7 +5,6 @@
  */
 const ERROR_MSG_NO_TEXT = 'Please type something to post as a Tweet!';
 const ERROR_MSG_LOGIN_REGISTER_EMPTY = 'Please enter valid username or password!';
-const ERROR_MSG_EXISTING_USER = 'Account Exists! Please use the login button';
 const ERROR_MSG_NOT_A_USER = 'Please register to use the app';
 const COOKIE_NAME = 'user';
 
@@ -35,33 +34,11 @@ $(document).ready(function () {
         .slideUp('slow');
 
     } else {
-      // TODO Check for existing user, error msg to login instead
-      // const registerForm = {
-      //   [formDataArr[0]]: formDataArr[1],
-      //   [formDataArr[2]]: formDataArr[3],
-      // }
-
+      // add user to db and load page
       $.ajax('/session', {
         method: "POST",
         data: formData,
       });
-
-      // $.ajax('/session', {
-      //   method: "GET",
-      //   success: function (users) {
-      //     if (isExistingUser(registerForm, users)) {
-      //       $('.error-msg').text(ERROR_MSG_EXISTING_USER)
-      //         .slideDown('slow')
-      //         .delay(1500)
-      //         .slideUp('slow');
-      //     }
-      //   },
-      // }).then(() => {
-      //   $.ajax('/session', {
-      //     method: "POST",
-      //     data: formData,
-      //   });
-      // });
     }
   });
 
@@ -104,7 +81,6 @@ $(document).ready(function () {
       });
     }
   })
-
 
   // Grow new tweet esp, the `textarea` to accomodate for multi-line text
   // without user not having to use the default scroll bar
