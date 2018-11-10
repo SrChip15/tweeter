@@ -4,9 +4,20 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 const ERROR_MSG_NO_TEXT = 'Please type something to post as a Tweet!';
+const COOKIE_NAME = 'user';
+
 $(document).ready(function () {
   // Hide new tweet section on page load
   $('.new-tweet').hide();
+
+  if (Cookies.get(COOKIE_NAME)) {
+    loggedInState();
+  }
+
+  $('.logout').click(function () {
+    loggedOutState();
+    Cookies.remove(COOKIE_NAME);
+  });
 
   $('div.login > form').submit(function (event) {
     event.preventDefault();
@@ -25,15 +36,11 @@ $(document).ready(function () {
       success: function (userList) {
         if(isExistingUser(checkSession, userList)) {
           // set cookie
+          Cookies.set(COOKIE_NAME, checkSession.name);
         }
       }
     }).then(() => {
-      // display tweets & compose button
-      $('.tweets-container').show();
-      $('#nav-bar a.compose').show();
-      loadTweets();
-      // hide login/register form
-      $('div.login').hide();
+      loggedInState();
     });
   })
 
@@ -137,5 +144,24 @@ $(document).ready(function () {
       }
     }
     return false;
+  }
+
+  function loggedInState() {
+    // display tweets, compose, and logout
+    $('.tweets-container').show();
+    $('#nav-bar a.compose').show();
+    $('#nav-bar .logout').show();
+    loadTweets();
+    // hide login/register form
+    $('div.login').hide();
+  }
+
+  function loggedOutState() {
+    // display tweets, compose, and logout
+    $('.tweets-container').hide();
+    $('#nav-bar a.compose').hide();
+    $('#nav-bar .logout').hide();
+    // hide login/register form
+    $('div.login').show();
   }
 });

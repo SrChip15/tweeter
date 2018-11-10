@@ -3,7 +3,6 @@
 // Basic express setup:
 const PORT = 8080;
 const MONGODB_URI = "mongodb://localhost:27017/tweeter";
-const COOKIE_NAME = 'username';
 const {MongoClient} = require("mongodb");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -13,10 +12,10 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-app.use(cookieSession({
-  name: 'session',
-  keys: [COOKIE_NAME]
-}));
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: [COOKIE_NAME]
+// }));
 
 
 MongoClient.connect(MONGODB_URI, (err, db) => {
