@@ -4,7 +4,9 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 const ERROR_MSG_NO_TEXT = 'Please type something to post as a Tweet!';
-const ERROR_MSG_LOGIN_EMPTY = 'Please enter valid username or password!';
+const ERROR_MSG_LOGIN_REGISTER_EMPTY = 'Please enter valid username or password!';
+const ERROR_MSG_EXISTING_USER = 'Account Exists! Please use the login button';
+const ERROR_MSG_NOT_A_USER = 'Please register to use the app';
 const COOKIE_NAME = 'user';
 
 $(document).ready(function () {
@@ -20,6 +22,49 @@ $(document).ready(function () {
     Cookies.remove(COOKIE_NAME);
   });
 
+  $('.register').click(function () {
+    console.log($('div.login > form').serialize());
+    const formData = $('div.login > form').serialize();
+    const formDataArr = formData.split(/\W+/);
+
+    // when user does not enter username and/or password
+    if (formDataArr.length < 4) {
+      $('.error-msg').text(ERROR_MSG_LOGIN_REGISTER_EMPTY)
+        .slideDown('slow')
+        .delay(1500)
+        .slideUp('slow');
+
+    } else {
+      // TODO Check for existing user, error msg to login instead
+      // const registerForm = {
+      //   [formDataArr[0]]: formDataArr[1],
+      //   [formDataArr[2]]: formDataArr[3],
+      // }
+
+      $.ajax('/session', {
+        method: "POST",
+        data: formData,
+      });
+
+      // $.ajax('/session', {
+      //   method: "GET",
+      //   success: function (users) {
+      //     if (isExistingUser(registerForm, users)) {
+      //       $('.error-msg').text(ERROR_MSG_EXISTING_USER)
+      //         .slideDown('slow')
+      //         .delay(1500)
+      //         .slideUp('slow');
+      //     }
+      //   },
+      // }).then(() => {
+      //   $.ajax('/session', {
+      //     method: "POST",
+      //     data: formData,
+      //   });
+      // });
+    }
+  });
+
   $('div.login > form').submit(function (event) {
     event.preventDefault();
 
@@ -28,10 +73,10 @@ $(document).ready(function () {
 
     // when user does not enter username and/or password
     if (data.length < 4) {
-      $('.error-msg').text(ERROR_MSG_LOGIN_EMPTY)
-      .slideDown('slow')
-      .delay(1500)
-      .slideUp('slow');
+      $('.error-msg').text(ERROR_MSG_LOGIN_REGISTER_EMPTY)
+        .slideDown('slow')
+        .delay(1500)
+        .slideUp('slow');
 
     } else {
       const checkSession = {
@@ -45,6 +90,11 @@ $(document).ready(function () {
           if (isExistingUser(checkSession, userList)) {
             // set cookie
             Cookies.set(COOKIE_NAME, checkSession.name);
+          } else {
+            $('.error-msg').text(ERROR_MSG_NOT_A_USER)
+              .slideDown('slow')
+              .delay(1500)
+              .slideUp('slow');
           }
         }
       }).then(() => {
@@ -157,7 +207,7 @@ $(document).ready(function () {
 
   function loggedInState() {
     // display tweets, compose, and logout
-    $('.tweets-container').show();
+    $('.container').show();
     $('#nav-bar a.compose').show();
     $('#nav-bar .logout').show();
     loadTweets();
@@ -167,7 +217,7 @@ $(document).ready(function () {
 
   function loggedOutState() {
     // display tweets, compose, and logout
-    $('.tweets-container').hide();
+    $('.container').hide();
     $('#nav-bar a.compose').hide();
     $('#nav-bar .logout').hide();
     // hide login/register form

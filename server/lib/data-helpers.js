@@ -36,6 +36,14 @@ module.exports = function makeDataHelpers(db) {
         }
         callback(null, users);
       });
-    }
+    },
+
+    // Saves a user to `db`
+    saveUser: function (newUser, callback) {
+      db.collection("users")
+        .insertOne(newUser)
+        .catch(console.log);
+      callback(null, true);
+    },
   };
 }

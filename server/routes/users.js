@@ -18,32 +18,29 @@ module.exports = function (DataHelpers) {
   });
 
   userRoutes.post("/", function (req, res) {
-    if (!req.body.text) {
+    if (!req.body.name && !req.body.password) {
       res.status(400).json({
         error: 'invalid request: no data in POST body'
       });
       return;
     }
 
-    /* const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
-    const tweet = {
-      user: user,
-      content: {
-        text: req.body.text
-      },
-      created_at: Date.now()
+    // res.status(201).send(`Received ${req.body.name}`);
+    const user = {
+      name: req.body.name,
+      password: req.body.password,
     };
 
-    DataHelpers.saveTweet(tweet, (err) => {
+    DataHelpers.saveUser(user, (err) => {
       if (err) {
         res.status(500).json({
           error: err.message
         });
       } else {
-        res.status(201).json(tweet);
+        res.status(201).send("Sucess, new user added!");
       }
     });
-  }); */
+  });
 
   return userRoutes;
 

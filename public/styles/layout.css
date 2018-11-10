@@ -35,11 +35,11 @@ body {
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
- .tweets-container {
-   display: none;
- }
+.container {
+  display: none;
+}
 
- section.tweets-container>article {
+section.tweets-container>article {
   margin-top: 20px;
   overflow: auto;
   border: 0.5px solid orange;
