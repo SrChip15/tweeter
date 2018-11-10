@@ -17,7 +17,7 @@ module.exports = function (DataHelpers) {
     });
   });
 
-  /* userRoutes.post("/", function (req, res) {
+  userRoutes.post("/", function (req, res) {
     if (!req.body.text) {
       res.status(400).json({
         error: 'invalid request: no data in POST body'
@@ -25,7 +25,7 @@ module.exports = function (DataHelpers) {
       return;
     }
 
-    const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
+    /* const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
     const tweet = {
       user: user,
       content: {

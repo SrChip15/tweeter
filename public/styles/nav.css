@@ -23,6 +23,10 @@
   font-size: 2em;
 }
 
+#nav-bar div.login form input[type="submit"] {
+  cursor: pointer;
+}
+
 #nav-bar a.compose {
   float: right;
   display: none;

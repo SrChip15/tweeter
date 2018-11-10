@@ -4,6 +4,7 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 const ERROR_MSG_NO_TEXT = 'Please type something to post as a Tweet!';
+const ERROR_MSG_LOGIN_EMPTY = 'Please enter valid username or password!';
 const COOKIE_NAME = 'user';
 
 $(document).ready(function () {
@@ -23,31 +24,41 @@ $(document).ready(function () {
     event.preventDefault();
 
     const formData = $(this).serialize();
-    console.log(formData);
-    console.log(formData.split(/\W+/));
     const data = formData.split(/\W+/);
-    const checkSession = {
-      [data[0]]: data[1],
-      [data[2]]: data[3],
-    }
 
-    $.ajax('/session', {
-      method: "GET",
-      success: function (userList) {
-        if(isExistingUser(checkSession, userList)) {
-          // set cookie
-          Cookies.set(COOKIE_NAME, checkSession.name);
-        }
+    // when user does not enter username and/or password
+    if (data.length < 4) {
+      $('.error-msg').text(ERROR_MSG_LOGIN_EMPTY)
+      .slideDown('slow')
+      .delay(1500)
+      .slideUp('slow');
+
+    } else {
+      const checkSession = {
+        [data[0]]: data[1],
+        [data[2]]: data[3],
       }
-    }).then(() => {
-      loggedInState();
-    });
+
+      $.ajax('/session', {
+        method: "GET",
+        success: function (userList) {
+          if (isExistingUser(checkSession, userList)) {
+            // set cookie
+            Cookies.set(COOKIE_NAME, checkSession.name);
+          }
+        }
+      }).then(() => {
+        if (Cookies.get(COOKIE_NAME)) {
+          loggedInState();
+        }
+      });
+    }
   })
 
 
   // Grow new tweet esp, the `textarea` to accomodate for multi-line text
   // without user not having to use the default scroll bar
-  $('textarea').focus(function() {
+  $('textarea').focus(function () {
     $(this).addClass('grow-context');
   });
 
@@ -59,12 +70,10 @@ $(document).ready(function () {
     })
   }
 
-  // loadTweets();
-
   // Handle new tweet form submission here
   // Get form data and perform remaining form validation rules
   // Submit data as a AJAX request & perform cleanup & reset activities
-  $('form').submit(function (event) {
+  $('section.new-tweet > form').submit(function (event) {
     event.preventDefault();
 
     let formData = $(this).serialize();
@@ -95,7 +104,7 @@ $(document).ready(function () {
     if ($('.new-tweet').is(':visible')) {
       $('.new-tweet').slideUp('slow');
     } else {
-      $('.new-tweet').slideDown('fast', function() {
+      $('.new-tweet').slideDown('fast', function () {
         $('textarea').focus();
       });
     }
