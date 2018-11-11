@@ -1,8 +1,5 @@
 "use strict";
 
-// Simulates the kind of delay we see with network or filesystem operations
-// const simulateDelay = require("./util/simulate-delay");
-
 // Defines helper functions for saving and getting tweets, using the database `db`
 module.exports = function makeDataHelpers(db) {
   return {
@@ -25,10 +22,7 @@ module.exports = function makeDataHelpers(db) {
       });
     },
 
-    // GET @ session:
-    // 1. get list of users
-    // 2. check if users exists searching on username and a secondary check for password
-    // 3. upon successful validation, set cookie on client
+    // Get all users in db
     getUsers: function (callback) {
       db.collection("users").find().toArray((err, users) => {
         if (err) {

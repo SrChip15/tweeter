@@ -108,7 +108,7 @@ $(document).ready(function () {
       $('.error-msg').text(ERROR_MSG_NO_TEXT).slideDown();
     }
 
-    $.ajax('/tweets', {
+    $.ajax(`/tweets/${Cookies.get(COOKIE_NAME)}`, {
       method: "POST",
       data: formData,
       success: function (tweet) {
@@ -135,16 +135,32 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on('click', '.tweet-actions > a', function (e) {
-    e.preventDefault();
-    let c = parseInt($(this).siblings('span').text(), 10) + 1;
-    $(this).siblings('span').text(c);
-    const username = $(this).siblings('span').data().username;
+  $(document).on('click', '.tweet-actions > a', function (event) {
+    event.preventDefault();
 
-    $.ajax('/tweets/${username}', {
+    const $span = $(this).siblings('span');
+    let likeCount = parseInt($span.text(), 10);
+
+    if ($span.data().toggle === 0 &&
+      $span.data().handle.slice(1) !== Cookies.get(COOKIE_NAME)) {
+      // like the clicked tweet if not users'
+      $span.data().toggle = 1;
+      likeCount += 1;
+
+    } else if ($span.data().toggle === 1 &&
+      $span.data().handle.slice(1) !== Cookies.get(COOKIE_NAME)) {
+      // previously liked tweet (not users'), un-like now
+      $span.data().toggle = 0;
+      likeCount -= 1;
+    }
+
+    // set updated span text
+    $(this).siblings('span').text(likeCount);
+
+    $.ajax('/tweets', {
       method: "POST",
-      data: c,
-      success: $(this).siblings('span').text(c),
+      data: likeCount,
+      success: $(this).siblings('span').text(likeCount),
     })
   });
 
@@ -169,9 +185,15 @@ $(document).ready(function () {
     const $footerActions = $('<div>').addClass('tweet-actions');
     const $footerActionFlag = $('<i>').addClass('fa fa-flag');
     const $footerActionShare = $('<i>').addClass('fas fa-retweet');
-    if (tweet.like)
-    const $footerActionHeart = $('<a>').append($('<i>').addClass('far fa-heart')).attr('href', '#');
-    const $footerHeartCounter = $('<span>').addClass('heart-counter').data('username', tweet.user.name).append(10);
+    const $footerActionHeart =
+      $('<a>').append($('<i>').addClass('far fa-heart')).attr('href', '#');
+    const $footerHeartCounter = $('<span>')
+      .addClass('heart-counter')
+      .data({
+        toggle: 0,
+        handle: tweet.user.handle,
+      })
+      .text(tweet.likes || 0);
 
     $footerActions.append($footerActionFlag).append('&nbsp;').append($footerActionShare).append('&nbsp;').append($footerActionHeart).append($footerHeartCounter);
     $footer.append($footerAge).append($footerActions);

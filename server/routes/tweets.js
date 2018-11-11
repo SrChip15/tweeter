@@ -17,18 +17,25 @@ module.exports = function(DataHelpers) {
   });
 
   tweetsRoutes.post("/", function(req, res) {
+    console.log(req.body);
+    res.status(201).send();
+  });
+
+  tweetsRoutes.post("/:userhandle", function(req, res) {
     if (!req.body.text) {
       res.status(400).json({ error: 'invalid request: no data in POST body'});
       return;
     }
 
-    const user = req.body.user ? req.body.user : userHelper.generateRandomUser();
+    const user =
+    req.body.user ? req.body.user : userHelper.generateRandomUser(req.params.userhandle);
     const tweet = {
       user: user,
       content: {
         text: req.body.text
       },
-      created_at: Date.now()
+      created_at: Date.now(),
+      likes: 0,
     };
 
     DataHelpers.saveTweet(tweet, (err) => {
@@ -39,10 +46,6 @@ module.exports = function(DataHelpers) {
       }
     });
   });
-
-  tweetsRoutes.post("/name:username", function(req, res) {
-    DataHelpers.saveLike()
-  })
 
   return tweetsRoutes;
 

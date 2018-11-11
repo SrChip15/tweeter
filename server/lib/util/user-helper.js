@@ -2,30 +2,19 @@
 
 const Chance = require("chance");
 const chance = new Chance();
-
 const md5 = require('md5');
 
 module.exports = {
 
-  generateRandomUser: () => {
+  generateRandomUser: (inHandle) => {
     const gender    = chance.gender();
     const firstName = chance.first({gender: gender});
     const lastName  = chance.last();
     const userName  = firstName + " " + lastName;
 
     let userHandle = "@";
-    if (Math.random() > 0.5) {
-      let prefix    = chance.prefix({gender: gender});
-      prefix = prefix.replace(".", "");
-      userHandle += prefix
-    }
 
-    userHandle += lastName;
-
-    if (Math.random() > 0.5) {
-      const suffix = Math.round(Math.random() * 100);
-      userHandle += suffix;
-    }
+    userHandle += inHandle;
 
     const avatarUrlPrefix = `https://vanillicon.com/${md5(userHandle)}`;
     const avatars = {
