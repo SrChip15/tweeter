@@ -23,18 +23,62 @@
   font-size: 2em;
 }
 
-#nav-bar input {
+#nav-bar div.login form input[type="submit"] {
+  cursor: pointer;
+}
+
+#nav-bar a.compose {
   float: right;
-  line-height: 2.5em;
-  font-size: 15px;
-  color: black;
+  display: none;
+  line-height: 3em;
+  border-radius: 10px;
+  color: brown;
   background-color: white;
   opacity: 0.6;
   cursor: pointer;
+  margin: 15px 0;
   padding-left: 15px;
   padding-right: 15px;
+  text-decoration: none;
 }
 
-#nav-bar input:hover {
+#nav-bar a i {
+  color: black;
+  font-size: 15px;
+  line-height: 2em;
+  padding-right: 5px;
+}
+
+#nav-bar a:hover {
   opacity: 1;
+  color: black;
+}
+
+#nav-bar .login {
+  float: right;
+  padding: 5px;
+}
+
+div.login input {
+  background-color: white;
+  margin-right: 5px;
+  color: orange;
+  line-height: 2em;
+}
+
+nav input.logout {
+  display: none;
+  float: right;
+  width: 100px;
+  line-height: 1.7em;
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  background-color: blueviolet;
+}
+
+nav input.logout:hover {
+  background-color: white;
+  color: black;
 }
