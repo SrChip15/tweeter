@@ -145,10 +145,12 @@ $(document).ready(function () {
       if ($span.data().toggle === 0) {
         // like the clicked tweet if not users'
         $span.data().toggle = 1;
+        $span.siblings('a').find('i').removeClass('far fa-heart').addClass('fas fa-heart');
         likeCount += 1;
       } else {
         // previously liked tweet (not users'), un-like now
         $span.data().toggle = 0;
+        $span.siblings('a').find('i').removeClass('fas fa-heart').addClass('far fa-heart');
         likeCount -= 1;
       }
 
