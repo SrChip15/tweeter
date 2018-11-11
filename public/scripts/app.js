@@ -202,7 +202,11 @@ $(document).ready(function () {
       })
       .text(tweet.likes || 0);
 
-    $footerActions.append($footerActionFlag).append('&nbsp;').append($footerActionShare).append('&nbsp;').append($footerActionHeart).append($footerHeartCounter);
+    $footerActions
+      .append($footerActionFlag)
+      .append($footerActionShare)
+      .append($footerActionHeart)
+      .append($footerHeartCounter);
     $footer.append($footerAge).append($footerActions);
 
     return $tweet.append($header).append($body).append($footer);

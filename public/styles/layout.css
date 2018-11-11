@@ -94,16 +94,29 @@ div.tweet-actions {
   margin-right: 10px;
 }
 
+div.tweet-actions i {
+  margin-left: 5px;
+}
+
+div.tweet-actions a i {
+  color: orange;
+}
+
+div.tweet-actions span.heart-counter {
+  font-size: 12px;
+  font-weight: 700;
+  color: black;
+  margin-left: 3px;
+  border-radius: 25px;
+  background-color: lightgray;
+  padding: 5px;
+  opacity: 0.6;
+}
+
 .tweets-container>article:hover .tweet-actions,
 .tweets-container>article:hover {
   display: block;
   opacity: 1;
-}
-
-article footer::before {
-  content: ' ';
-  display: block;
-  border: 0.25px solid lightgray;
 }
 
 input[type="submit"][disabled] {
