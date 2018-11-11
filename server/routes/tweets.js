@@ -16,9 +16,14 @@ module.exports = function(DataHelpers) {
     });
   });
 
-  tweetsRoutes.post("/", function(req, res) {
-    console.log(req.body);
-    res.status(201).send();
+  tweetsRoutes.put("/update/:likeCount", function(req, res) {
+    DataHelpers.updateTweet(req.body.tweet_text, req.params.likeCount, (err) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res.status(201).send("Success, record updated!");
+      }
+    })
   });
 
   tweetsRoutes.post("/:userhandle", function(req, res) {

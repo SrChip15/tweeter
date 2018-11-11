@@ -141,27 +141,32 @@ $(document).ready(function () {
     const $span = $(this).siblings('span');
     let likeCount = parseInt($span.text(), 10);
 
-    if ($span.data().toggle === 0 &&
-      $span.data().handle.slice(1) !== Cookies.get(COOKIE_NAME)) {
-      // like the clicked tweet if not users'
-      $span.data().toggle = 1;
-      likeCount += 1;
+    if ($span.data().handle.slice(1) !== Cookies.get(COOKIE_NAME)) {
+      if ($span.data().toggle === 0) {
+        // like the clicked tweet if not users'
+        $span.data().toggle = 1;
+        likeCount += 1;
+      } else {
+        // previously liked tweet (not users'), un-like now
+        $span.data().toggle = 0;
+        likeCount -= 1;
+      }
 
-    } else if ($span.data().toggle === 1 &&
-      $span.data().handle.slice(1) !== Cookies.get(COOKIE_NAME)) {
-      // previously liked tweet (not users'), un-like now
-      $span.data().toggle = 0;
-      likeCount -= 1;
+      // set updated span text
+      $(this).siblings('span').text(likeCount);
+
+      // console.log($(this).closest('footer').siblings('.body').text());
+      const $textContent = $(this).closest('footer').siblings('.body').text();
+
+      // update like count in db
+      $.ajax(`/tweets/update/${likeCount}`, {
+        method: "PUT",
+        data: {
+          tweet_text: $textContent
+        },
+        success: $(this).siblings('span').text(likeCount),
+      })
     }
-
-    // set updated span text
-    $(this).siblings('span').text(likeCount);
-
-    $.ajax('/tweets', {
-      method: "POST",
-      data: likeCount,
-      success: $(this).siblings('span').text(likeCount),
-    })
   });
 
   function createTweetElement(tweet) {

@@ -22,6 +22,14 @@ module.exports = function makeDataHelpers(db) {
       });
     },
 
+    // update like count values
+    updateTweet: function (filter, uLikeCount, callback) {
+      db.collection("tweets")
+      .update({"content": {"text": filter}}, {$set : {"likes": uLikeCount}})
+      .catch(console.log)
+      callback(null, true);
+    },
+
     // Get all users in db
     getUsers: function (callback) {
       db.collection("users").find().toArray((err, users) => {
