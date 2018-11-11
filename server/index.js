@@ -6,16 +6,10 @@ const MONGODB_URI = "mongodb://localhost:27017/tweeter";
 const {MongoClient} = require("mongodb");
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookieSession = require('cookie-session');
-const bcrypt = require('bcrypt');
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: [COOKIE_NAME]
-// }));
 
 
 MongoClient.connect(MONGODB_URI, (err, db) => {

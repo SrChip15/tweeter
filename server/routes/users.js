@@ -25,7 +25,6 @@ module.exports = function (DataHelpers) {
       return;
     }
 
-    // res.status(201).send(`Received ${req.body.name}`);
     const user = {
       name: req.body.name,
       password: req.body.password,
