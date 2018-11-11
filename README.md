@@ -20,4 +20,20 @@ Tweeter is a simple, single-page Twitter clone.
 - MongoDb
 
 ## Screenshots
+### New Tweet Box
+<img src="https://github.com/SrChip15/tweeter/blob/master/docs/new_tweet.png" >
 
+### New Tweet Character Counter
+<img src="https://github.com/SrChip15/tweeter/blob/master/docs/reg_char_count.png" height="275">
+
+### Long Tweet
+<img src="https://github.com/SrChip15/tweeter/blob/master/docs/long_tweet.png" >
+
+### Empty Tweet
+<img src="https://github.com/SrChip15/tweeter/blob/master/docs/empty_tweet.png" >
+
+### Tweets
+<img src="https://github.com/SrChip15/tweeter/blob/master/docs/tweets.png" >
+
+### Tweet Hover State
+<img src="https://github.com/SrChip15/tweeter/blob/master/docs/tweet_hover.png" >
