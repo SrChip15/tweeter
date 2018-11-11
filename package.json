@@ -1,20 +1,18 @@
 {
   "name": "tweeter",
   "version": "1.0.0",
-  "description": "A twitter clone by Lighthouse Labs for web bootcamp students to learn front-end dev skillz",
+  "description": "A twitter clone to learn front-end dev skillz",
   "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
     "local": "./node_modules/.bin/nodemon --watch server -e js server/index.js"
   },
-  "author": "Lighthouse Labs",
+  "author": "Sri Nath",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "2.0.0",
     "body-parser": "^1.15.2",
     "chance": "^1.0.2",
-    "cookie-session": "^2.0.0-beta.3",
     "express": "^4.13.4",
     "md5": "^2.1.0",
     "mongodb": "^2.2.36"

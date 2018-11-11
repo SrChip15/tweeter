@@ -38,25 +38,3 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
-/* app.post('/session', (req, res) => {
-  if (!req.body.name || !req.body.password) {
-    res.status(400).send("Username/email or Password field cannot be empty");
-  }
-
-  // verify credentials
-  let user = users.verify(req.body.name, req.body.password);
-
-  if (user) {
-    req.session[COOKIE_NAME] =  user.name; // sets session cookie
-    res.redirect('/tweets');
-  } else {
-    // new user
-    res.status(403).statusMessage("Please click the register button");
-  }
-});
-
-app.post('/logout', (req, res) => {
-  req.session = null;
-  res.redirect('/login');
-}); */
