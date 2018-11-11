@@ -22,7 +22,6 @@ $(document).ready(function () {
   });
 
   $('.register').click(function () {
-    console.log($('div.login > form').serialize());
     const formData = $('div.login > form').serialize();
     const formDataArr = formData.split(/\W+/);
 
@@ -174,7 +173,6 @@ $(document).ready(function () {
   function isExistingUser(entry, users) {
     for (const user of users) {
       if (user.name === entry.name && user.password === entry.password) {
-        console.log(`Name and password match.`);
         return true;
       }
     }
